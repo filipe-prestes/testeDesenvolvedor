@@ -1,5 +1,4 @@
 package testeDesenvolvedor;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 

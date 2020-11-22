@@ -2,51 +2,148 @@ package testeDesenvolvedor;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class Empacotamento {
 
-  public static void gravarArquivoBinario(Dados dados) {
-    try {
-    	 String fileName = "saida.dat";
-    	 String filePath = System.getProperty("user.home")  + "\\data\\out\\";
+  public static void gravarArquivoDadosBinario(Dados dados, String fileName) {
+    try {    	 
+    	 String filePath = System.getProperty("user.home")  + "\\data\\in\\";
     	 System.out.println("Gravando arquivo: "+filePath+fileName);
     	 System.out.println("------------------------------------------------------");
     	 File arq = new File(filePath+fileName);
     	 arq.delete();
     	 arq.createNewFile();
+
     	 ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arq));
     	 objOutput.writeObject(dados);
-    	 objOutput.close();
-
+    	 objOutput.close(); 	
     } catch(IOException erro) {
         System.out.printf("Erro: %s", erro.getMessage());
     }
   }
+  
+  public static void gravarArquivoRelatorioBinario(Relatorio relatorio, String fileName) {
+	    try {    	 
+	    	 String filePath = System.getProperty("user.home")  + "\\data\\out\\";
+	    	 System.out.println("Gravando relatório: "+filePath+fileName);
+	    	 System.out.println("------------------------------------------------------");
+	    	 File arq = new File(filePath+fileName);
+	    	 arq.delete();
+	    	 arq.createNewFile();
 
-  public static Dados lerArquivoBinario() {
-    Dados dados = new Dados(null, null, null);
+	    	 ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arq));
+	    	 objOutput.writeObject(relatorio);
+	    	 objOutput.close(); 	
+	    } catch(IOException erro) {
+	        System.out.printf("Erro: %s", erro.getMessage());
+	    }
+	  }
+
+  public static ArrayList<Arquivo> lerArquivosDadosBinarios() {
+	  ArrayList<Arquivo> arquivoList = new ArrayList<Arquivo>();
     try {
-    	String fileName = "entrada.dat";
     	String filePath = System.getProperty("user.home")  + "\\data\\in\\";
-//    	String filePath = System.getProperty("user.home")  + "\\data\\out\\";
-    	System.out.println("Lendo arquivo: "+filePath+fileName);
+    	System.out.println("Lendo diretório: "+filePath);
     	System.out.println("------------------------------------------------------");
-    	File arq = new File(filePath+fileName);
-      if (arq.exists()) {
-         ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(arq));
-         dados = (Dados)objInput.readObject();
-         objInput.close();
-      }
+    	File file = new File(filePath);
+		File afile[] = file.listFiles();
+		if(afile.length != 0) {
+			int i = 0;
+			for (int j = afile.length; i < j; i++) {
+				File arq = afile[i];			
+				if (arq.exists()) {
+					System.out.println("Lendo Arquivo: "+arq.getName());
+					ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(arq));				
+					try {
+						Dados dados = (Dados)objInput.readObject();						
+						arquivoList.add(new Arquivo(arq.getName(), dados, null));
+						objInput.close();
+					} catch (Exception e) {
+						System.err.println("Arquivo inconpativel.");
+					}
+				}
+			}			
+		}else {
+			System.err.println("Nenhum arquivo encontrado.");
+		}
+		System.out.println("------------------------------------------------------");
+		return arquivoList;
     } catch(IOException erro1) {
         System.out.printf("Erro: %s", erro1.getMessage());
-    } catch(ClassNotFoundException erro2) {
-        System.out.printf("Erro: %s", erro2.getMessage());
-    }
-
-    return(dados);
+        
+    } 
+    return arquivoList;
   }
+  
+  public static ArrayList<Arquivo> lerArquivosRelatoriosBinarios() {
+	  ArrayList<Arquivo> arquivoList = new ArrayList<Arquivo>();
+    try {
+    	String filePath = System.getProperty("user.home")  + "\\data\\out\\";
+    	
+    	System.out.println("Lendo diretório: "+filePath);
+    	System.out.println("------------------------------------------------------");
+    	File file = new File(filePath);
+		File afile[] = file.listFiles();
+		if(afile.length != 0) {
+			int i = 0;
+			for (int j = afile.length; i < j; i++) {
+				File arq = afile[i];			
+				if (arq.exists()) {
+					System.out.println("Lendo Relatório: "+arq.getName());
+					ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(arq));				
+					try {
+						Relatorio relatorio = (Relatorio)objInput.readObject();						
+						arquivoList.add(new Arquivo(arq.getName(), null, relatorio));
+						objInput.close();
+					} catch (Exception e) {
+						System.err.println("Relatório inconpatÃ­vel.");
+						System.out.println("PadrÃ£o esperado: testeDesenvolvedor\\Relatorio.java");
+					}
+				}
+			}			
+		}else {
+			System.err.println("Nenhum relatório encontrado.");
+		}
+		System.out.println("------------------------------------------------------");
+		return arquivoList;
+    } catch(IOException erro1) {
+        System.out.printf("Erro: %s", erro1.getMessage());
+        
+    } 
+    return arquivoList;
+  }
+  
+  public static FileOutputStream gravarExcel(Dados dados) throws FileNotFoundException {
+	    try {
+	    	 String fileName = "relatorio.xls";
+	    	 String filePath = System.getProperty("user.home")  + "\\data\\out\\";
+	    	 System.out.println("Gravando arquivo: "+filePath+fileName);
+	    	 System.out.println("------------------------------------------------------");
+	    	 File arq = new File(filePath+fileName);
+	    	 arq.delete();
+	    	 arq.createNewFile();
+	    	 return new FileOutputStream(arq);
+
+	    } catch(IOException erro) {
+	        System.out.printf("Erro: %s", erro.getMessage());
+	    }
+		return new FileOutputStream("Erro");
+	  }
+  
+  public static void visualizarArquivos(String diretorio) throws IOException {
+		File file = new File(diretorio);
+		File afile[] = file.listFiles();
+		int i = 0;
+		for (int j = afile.length; i < j; i++) {
+			File arquivos = afile[i];
+			System.out.println(arquivos.getName());
+		}
+
+	}
 }

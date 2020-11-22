@@ -2,7 +2,6 @@ package testeDesenvolvedor;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -118,23 +117,6 @@ public class Empacotamento {
     } 
     return arquivoList;
   }
-  
-  public static FileOutputStream gravarExcel(Dados dados) throws FileNotFoundException {
-	    try {
-	    	 String fileName = "relatorio.xls";
-	    	 String filePath = System.getProperty("user.home")  + "\\data\\out\\";
-	    	 System.out.println("Gravando arquivo: "+filePath+fileName);
-	    	 System.out.println("------------------------------------------------------");
-	    	 File arq = new File(filePath+fileName);
-	    	 arq.delete();
-	    	 arq.createNewFile();
-	    	 return new FileOutputStream(arq);
-
-	    } catch(IOException erro) {
-	        System.out.printf("Erro: %s", erro.getMessage());
-	    }
-		return new FileOutputStream("Erro");
-	  }
   
   public static void visualizarArquivos(String diretorio) throws IOException {
 		File file = new File(diretorio);

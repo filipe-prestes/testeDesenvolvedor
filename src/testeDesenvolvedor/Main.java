@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Main {
 	private static BigDecimal maiorVenda;
-	private static int idMaiorVenda;
-	private static int idItemMaiorVenda;
+	private static String idMaiorVenda;
+	private static String idItemMaiorVenda;
 	private static BigDecimal precoItemMaiorVenda;
 	private static BigDecimal qtdItemMaiorVenda;
 	private static BigDecimal menorVendaTotal;
@@ -17,7 +17,7 @@ public class Main {
 	private static ArrayList<Vendas> vendasList;
 	private static ArrayList<Vendedor> vendedorList;
 	private static ArrayList<Cliente> clienteList;
-	private static int idPiorVendedor;
+	private static String idPiorVendedor;
 
 	public static void main(String[] args) throws IOException {		
 		//Gerar_um_novo_arquivo_binario_de_Dados
@@ -65,15 +65,15 @@ public class Main {
 	private static void criarListaVendas() {
 		vendasList = new ArrayList<Vendas>();
 		ArrayList<ItemVenda> itenVendaList = new ArrayList<ItemVenda>();
-		itenVendaList.add(new ItemVenda(1, new BigDecimal(10), new BigDecimal(100)));
-		itenVendaList.add(new ItemVenda(2, new BigDecimal(30), new BigDecimal(2.50)));
-		itenVendaList.add(new ItemVenda(3, new BigDecimal(40), new BigDecimal(3.10)));
-		vendasList.add(new Vendas(10, itenVendaList,2, "Pedro"));
+		itenVendaList.add(new ItemVenda("1", new BigDecimal(10), new BigDecimal(100)));
+		itenVendaList.add(new ItemVenda("2", new BigDecimal(30), new BigDecimal(2.50)));
+		itenVendaList.add(new ItemVenda("3", new BigDecimal(40), new BigDecimal(3.10)));
+		vendasList.add(new Vendas("10", itenVendaList,"2", "Pedro"));
 		itenVendaList = new ArrayList<ItemVenda>();
-		itenVendaList.add(new ItemVenda(1, new BigDecimal(10), new BigDecimal(400)));
-		itenVendaList.add(new ItemVenda(2, new BigDecimal(20), new BigDecimal(500)));
-		itenVendaList.add(new ItemVenda(3, new BigDecimal(30), new BigDecimal(600)));
-		vendasList.add(new Vendas(8, itenVendaList,1,"Paulo"));
+		itenVendaList.add(new ItemVenda("1", new BigDecimal(10), new BigDecimal(400)));
+		itenVendaList.add(new ItemVenda("2", new BigDecimal(20), new BigDecimal(500)));
+		itenVendaList.add(new ItemVenda("3", new BigDecimal(30), new BigDecimal(600)));
+		vendasList.add(new Vendas("8", itenVendaList,"1","Paulo"));
 	}
 
 	private static void criarListaClientes() {
@@ -146,7 +146,7 @@ public class Main {
 								+ NumberFormat.getCurrencyInstance().format(itemVenda.getItemPreco()));
 						totalVenda = totalVenda.add(somaItem);
 					}
-					System.out.println(String.format("%03d", vendas.getId()) + "-" + vendas.getIdVenda() + itens
+					System.out.println(vendas.getId() + "-" + vendas.getIdVenda() + itens
 							+ vendas.getNomeVendedor());					
 				}
 
@@ -160,7 +160,7 @@ public class Main {
 		if (dados.getClienteList() != null) {
 			if (!dados.getClienteList().isEmpty()) {
 				for (Cliente cliente : dados.getClienteList()) {
-					System.out.println(String.format("%03d", cliente.getId()) + "-" + cliente.getCnpj() + "-"
+					System.out.println(cliente.getId() + "-" + cliente.getCnpj() + "-"
 							+ cliente.getNome() + "-" + cliente.getArea());
 				}
 			} else {
@@ -173,7 +173,7 @@ public class Main {
 		if (dados.getVendedorList() != null) {
 			if (!dados.getVendedorList().isEmpty()) {
 				for (Vendedor vendedor : dados.getVendedorList()) {
-					System.out.println(String.format("%03d", vendedor.getId()) + "-" + vendedor.getCpf() + "-"
+					System.out.println(vendedor.getId() + "-" + vendedor.getCpf() + "-"
 							+ vendedor.getNome() + "-"
 							+ NumberFormat.getCurrencyInstance().format(vendedor.getSalario()));
 				}
@@ -187,19 +187,19 @@ public class Main {
 		menorVendaTotal = new BigDecimal(0);
 		totalVenda = new BigDecimal(0);
 		maiorVenda = new BigDecimal(0);
-		idMaiorVenda = 0;
-		idItemMaiorVenda = 0;
+		idMaiorVenda = "";
+		idItemMaiorVenda = "";
 		precoItemMaiorVenda = new BigDecimal(0);
 		qtdItemMaiorVenda = new BigDecimal(0);
 		nomeVendedorMenorVenda = "";
-		idPiorVendedor = 0;
+		idPiorVendedor = "";
 	}
 
-	public static int getIdItemMaiorVenda() {
+	public static String getIdItemMaiorVenda() {
 		return idItemMaiorVenda;
 	}
 
-	public static void setIdItemMaiorVenda(int idItemMaiorVenda) {
+	public static void setIdItemMaiorVenda(String idItemMaiorVenda) {
 		Main.idItemMaiorVenda = idItemMaiorVenda;
 	}
 

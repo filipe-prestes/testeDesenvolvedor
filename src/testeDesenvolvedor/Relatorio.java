@@ -6,12 +6,12 @@ import java.io.Serializable;
 public class Relatorio implements Serializable {
 	private static final long serialVersionUID = -625885360819514500L;
 	private int qtdClientes;
-	private int idMaiorVenda;
+	private String idMaiorVenda;
 	private int qtdVendedor;
-	private int idPiorVendedor;
+	private String idPiorVendedor;
 	private String piorVendedor;
 
-	public Relatorio(int qtdClientes, int idMaiorVenda, int qtdVendedorArquivo, int idPiorVendedor, String piorVendedor) {
+	public Relatorio(int qtdClientes, String idMaiorVenda, int qtdVendedorArquivo, String idPiorVendedor, String piorVendedor) {
 		this.qtdClientes = qtdClientes;
 		this.idMaiorVenda = idMaiorVenda;
 		this.qtdVendedor = qtdVendedorArquivo;
@@ -27,11 +27,11 @@ public class Relatorio implements Serializable {
 		this.qtdClientes = qtdClientes;
 	}
 
-	public int getIdMaiorVenda() {
+	public String getIdMaiorVenda() {
 		return idMaiorVenda;
 	}
 
-	public void setIdMaiorVenda(int idMaiorVenda) {
+	public void setIdMaiorVenda(String idMaiorVenda) {
 		this.idMaiorVenda = idMaiorVenda;
 	}
 
@@ -51,11 +51,11 @@ public class Relatorio implements Serializable {
 		this.piorVendedor = piorVendedor;
 	}
 
-	public int getIdPiorVendedor() {
+	public String getIdPiorVendedor() {
 		return idPiorVendedor;
 	}
 
-	public void setIdPiorVendedor(int idPiorVendedor) {
+	public void setIdPiorVendedor(String idPiorVendedor) {
 		this.idPiorVendedor = idPiorVendedor;
 	}
 

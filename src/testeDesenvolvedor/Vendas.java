@@ -5,27 +5,34 @@ import java.util.ArrayList;
 
 public class Vendas implements Serializable {
 	private static final long serialVersionUID = -4928794813916739591L;
-	private int id;
-	private int idVenda;
+	private String id;
+	private String idVenda;
 	private ArrayList<ItemVenda> itemVenda;
-	private int idVendedor;
+	private String idVendedor;
 	private String nomeVendedor;
 
-	public Vendas(int idVenda, ArrayList<ItemVenda> itemVenda,int idVendedor, String nomeVendedor) {
-		this.id = 003;
+	public Vendas(String idVenda, ArrayList<ItemVenda> itemVenda,String idVendedor, String nomeVendedor) {
+		this.id = "003";
 		this.idVenda = idVenda;
 		this.idVendedor = idVendedor;
-		this.itemVenda = itemVenda;
-		
+		this.itemVenda = itemVenda;		
 		this.nomeVendedor = nomeVendedor;
 		
 	}
 
-	public int getIdVenda() {
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getIdVenda() {
 		return idVenda;
 	}
 
-	public void setIdVenda(int idVenda) {
+	public void setIdVenda(String idVenda) {
 		this.idVenda = idVenda;
 	}
 
@@ -37,6 +44,14 @@ public class Vendas implements Serializable {
 		this.itemVenda = itemVenda;
 	}
 
+	public String getIdVendedor() {
+		return idVendedor;
+	}
+
+	public void setIdVendedor(String idVendedor) {
+		this.idVendedor = idVendedor;
+	}
+
 	public String getNomeVendedor() {
 		return nomeVendedor;
 	}
@@ -45,15 +60,4 @@ public class Vendas implements Serializable {
 		this.nomeVendedor = nomeVendedor;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public int getIdVendedor() {
-		return idVendedor;
-	}
-
-	public void setIdVendedor(int idVendedor) {
-		this.idVendedor = idVendedor;
-	}
 }

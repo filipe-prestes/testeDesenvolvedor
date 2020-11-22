@@ -5,21 +5,21 @@ import java.math.BigDecimal;
 
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = -1722910211005930455L;
-	private int id;
+	private String id;
 	private String nome;
 	private String cnpj;
 	private BigDecimal salario;
 	private String area;
 
 	public Cliente(String nome, String cnpj, BigDecimal salario, String area) {
-		this.id = 002;
+		this.id = "002";
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.salario = salario;
 		this.area = area;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
